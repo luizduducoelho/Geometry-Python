@@ -19,4 +19,14 @@ segments = []
 for i in range(number_of_segments):
 	segments.append(Segment(points[2*i], points[2*i + 1]))
 
-print(segments)
+segments2 = segments
+np.random.shuffle(segments2)
+interceptions = []
+
+inicial_time = clock()
+for segment, segment2 in zip(segments, segments2):
+	interceptions.append(intersection(segment, segment2))
+final_time = clock()
+
+time_spent = final_time - inicial_time
+print("Time spent in calculating interceptions using sympy = {}".format(time_spent))
