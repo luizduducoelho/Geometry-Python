@@ -10,9 +10,10 @@ from time import clock
 
 number_of_segments = 1000
 
-points = []
-for _ in range(2 * number_of_segments):
-	points.append(1000 * np.random.random_sample(2))
+#points = []
+#for _ in range(2 * number_of_segments):
+#	points.append(1000 * np.random.random_sample(2))
+points = 1000 * np.random.random_sample([2*number_of_segments, 2])
 
 segments = []
 for i in range(number_of_segments):
