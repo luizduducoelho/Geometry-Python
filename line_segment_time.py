@@ -24,17 +24,13 @@ np.random.shuffle(segments2)
 interceptions = []
 
 inicial_time = clock()
-#for segment1, segment2 in zip(segments, segments2):
-#   interceptions.append(intersection(segment1, segment2))
-#final_time = clock()
-#print(interceptions
+for segment1, segment2 in zip(segments, segments2):
+   interceptions.append(intersection(segment1, segment2))
+final_time = clock()
+#print(interceptions)
 
-#time_spent = final_time - inicial_time
-#print("Time spent in calculating interceptions using sympy = {}".format(time_spent))
-
-seg1 = Segment([0,0], [0,5])
-seg2 = Segment([5,0], [5,5])
-print(intersection(seg1, seg2))
+time_spent = final_time - inicial_time
+print("Time spent in calculating interceptions using sympy = {}".format(time_spent))
 
 def return_overlapping(p,q,r,s):
     
@@ -45,49 +41,49 @@ def return_overlapping(p,q,r,s):
     if (np.dot(s,r) >= 0):
         
         if t1 < 0 or t0 > 1:
-            print("Here1")
+            #print("Here1")
             return []
         elif t1 == 0:
-            print("Here2")
+            #print("Here2")
             return p
         elif t0 == 1:
-            print("Here3")
+            #print("Here3")
             return p+r
         if (0 < t0 < 1):
-            print("Here4")
+            #print("Here4")
             seg.append(p+t0*r)
         elif t0 <= 0: 
-            print("Here5")
+            #print("Here5")
             seg.append(p) 
         if (0 < t1 < 1):
-            print("Here6")
+            #print("Here6")
             seg.append(p+t1*r)
         elif t1 >= 1: 
-            print("Here7")
+            #print("Here7")
             seg.append(p+r)
             
 
     elif (np.dot(s,r) < 0):
         if t0 < 0 or t1 > 1:
-            print("here1")
+            #print("here1")
             return []
         elif t0 == 0:
-            print("here2")
+            #print("here2")
             return p
         elif t1 == 1:
-            print("here3")
+            #print("here3")
             return p+r
         if (0 < t1 < 1):
-            print("here4")
+            #print("here4")
             seg.append(p+t1*r)
         elif t1 <= 0: 
-            print("here5")
+            #print("here5")
             seg.append(p) 
         if (0 < t0 < 1):
-            print("here6")
+            #print("here6")
             seg.append(p+t0*r)        
         elif t0 >= 1:
-            print("here7")
+            #print("here7")
             seg.append(p+r)
                     
     return seg
@@ -140,4 +136,4 @@ final_time = clock()
 #print(interceptions)
 
 time_spent = final_time - inicial_time
-print("Time spent in calculating interceptions using sympy = {}".format(time_spent))
+print("Time spent in calculating interceptions using numpy only = {}".format(time_spent))
