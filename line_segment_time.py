@@ -2,36 +2,6 @@ import numpy as np
 from sympy.geometry import Segment, intersection
 from time import clock 
 
-#p1, p2 = Point([0, 0]), Point([7, 7])
-#p3, p4 = Point([5, 0]), Point([5, 5])
-
-#segment1, segment2 =  Segment(p1, p2), Segment(p3,p4)
-#print(segment1, segment2)
-
-number_of_segments = 1000
-
-#points = []
-#for _ in range(2 * number_of_segments):
-#   points.append(1000 * np.random.random_sample(2))
-points = 1000 * np.random.random_sample([2*number_of_segments, 2])
-
-segments = []
-for i in range(number_of_segments):
-    segments.append(Segment(points[2*i], points[2*i + 1]))
-
-segments2 = segments
-np.random.shuffle(segments2)
-interceptions = []
-
-inicial_time = clock()
-for segment1, segment2 in zip(segments, segments2):
-   interceptions.append(intersection(segment1, segment2))
-final_time = clock()
-#print(interceptions)
-
-time_spent = final_time - inicial_time
-print("Time spent in calculating interceptions using sympy = {}".format(time_spent))
-
 def return_overlapping(p,q,r,s):
     
     t0 = np.dot(q-p,r)/np.dot(r,r)
@@ -124,16 +94,33 @@ def np_intersection(segment1, segment2):
         # Segments do not intersect 
         return []
 
+if __name__ == "__main__":
 
-points2 = points
-np.random.shuffle(points2)
-np_interceptions = []
+    number_of_segments = 1000
+    points = 1000 * np.random.random_sample([2*number_of_segments, 2])
+    points2 = 1000 * np.random.random_sample([2*number_of_segments, 2])
 
-inicial_time = clock()
-for i in range(1000):
-    np_interceptions.append(np_intersection(np.stack((points[2*i], points[2*i+1])), np.stack((points2[2*1],points2[2*1+1] ))))
-final_time = clock()
-#print(interceptions)
+    segments = []
+    segments2 = []
+    for i in range(number_of_segments):
+        segments.append(Segment(points[2*i], points[2*i + 1]))
+        segments2.append(Segment(points2[2*i], points2[2*i + 1]))
 
-time_spent = final_time - inicial_time
-print("Time spent in calculating interceptions using numpy only = {}".format(time_spent))
+    # Sympy
+    interceptions = []
+    inicial_time = clock()
+    for segment1, segment2 in zip(segments, segments2):
+       interceptions.append(intersection(segment1, segment2))
+    final_time = clock()
+    time_spent = final_time - inicial_time
+    print("Time spent in calculating interceptions using sympy = {}".format(time_spent))
+
+
+    # Numpy implementation
+    np_interceptions = []
+    inicial_time = clock()
+    for i in range(1000):
+        np_interceptions.append(np_intersection(np.stack((points[2*i], points[2*i+1])), np.stack((points2[2*1],points2[2*1+1] ))))
+    final_time = clock()
+    time_spent = final_time - inicial_time
+    print("Time spent in calculating interceptions using numpy only = {}".format(time_spent))
