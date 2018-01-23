@@ -11,62 +11,52 @@ def return_overlapping(p,q,r,s):
     if (np.dot(s,r) >= 0):
         
         if t1 < 0 or t0 > 1:
-            #print("Here1")
             return []
         elif t1 == 0:
-            #print("Here2")
-            return p
+            return [p]
         elif t0 == 1:
-            #print("Here3")
-            return p+r
+            return [p+r]
         if (0 < t0 < 1):
-            #print("Here4")
             seg.append(p+t0*r)
         elif t0 <= 0: 
-            #print("Here5")
             seg.append(p) 
         if (0 < t1 < 1):
-            #print("Here6")
             seg.append(p+t1*r)
         elif t1 >= 1: 
-            #print("Here7")
             seg.append(p+r)
             
 
     elif (np.dot(s,r) < 0):
         if t0 < 0 or t1 > 1:
-            #print("here1")
             return []
         elif t0 == 0:
-            #print("here2")
-            return p
+            return [p]
         elif t1 == 1:
-            #print("here3")
-            return p+r
+            return [p+r]
         if (0 < t1 < 1):
-            #print("here4")
             seg.append(p+t1*r)
         elif t1 <= 0: 
-            #print("here5")
             seg.append(p) 
         if (0 < t0 < 1):
-            #print("here6")
             seg.append(p+t0*r)        
         elif t0 >= 1:
-            #print("here7")
             seg.append(p+r)
-                    
+
     return seg
 
-def np_intersection(segment1, segment2):
-    # For math reference see https://stackoverflow.com/questions/563198/whats-the-most-efficent-way-to-calculate-where-two-line-segments-intersect
-    # segment1 = (p, p+r) =  p + t*r 
-    # segment2 = (q, q+s) =  q + u*s , parametric form
+def segment_intersection(segment1, segment2):
+    '''
+     For math reference see https://stackoverflow.com/questions/563198/whats-the-most-efficent-way-to-calculate-where-two-line-segments-intersect
+     segment1 = (p, p+r) =  p + t*r 
+     segment2 = (q, q+s) =  q + u*s , parametric form
 
-    # Line intersects if there is t and u, so that 
-    # p + t*r = q + u*s
-    # Or, using cross product with pt2
-    # t*(r X s) = (q - p) X s
+     Line intersects if there is t and u, so that 
+     p + t*r = q + u*s
+     Or, using cross product with pt2
+     t*(r X s) = (q - p) X s
+
+     Returns a list of numpy array
+     '''
 
     p = segment1[0]
     q = segment2[0]
@@ -120,7 +110,7 @@ if __name__ == "__main__":
     np_interceptions = []
     inicial_time = clock()
     for i in range(1000):
-        np_interceptions.append(np_intersection(np.stack((points[2*i], points[2*i+1])), np.stack((points2[2*1],points2[2*1+1] ))))
+        np_interceptions.append(segment_intersection(np.stack((points[2*i], points[2*i+1])), np.stack((points2[2*1],points2[2*1+1] ))))
     final_time = clock()
     time_spent = final_time - inicial_time
     print("Time spent in calculating interceptions using numpy only = {}".format(time_spent))
