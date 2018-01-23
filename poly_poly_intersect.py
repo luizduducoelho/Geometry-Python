@@ -3,10 +3,10 @@ import sympy.geometry as sp
 from time import clock
 
 def gift_wrapper(np_points):
-	'''
-	Returns the convex hull for a set of points
-	They are returned sorted in counter-clockwise order
-	'''
+    '''
+    Returns the convex hull for a set of points
+    They are returned sorted in counter-clockwise order
+    '''
     
     # Number of points
     n = len(np_points)
@@ -94,12 +94,14 @@ def convex_intersect(P, Q):
         # Special case: A & B overlap and oppositely oriented
         if code == 'e' and np.dot(A, B) < 0:
             #raise SystemExit
-            print("Special case interception")
-            return[]
+            #print("Special case interception")
+            I.append(p)
+            if q.any() != None:
+                I.append(q)
         
         # Special case: A & B parallel and separated
         if cross == 0 and aHB < 0 and bHA < 0:
-            print("P and Q are disjoint")
+            print("P and Q are disjoint, parallel edge")
             #raise SystemExit
             return []
         
@@ -127,21 +129,22 @@ def convex_intersect(P, Q):
         pass
         #print("The boundaries of P and Q do not cross")
     
-    return(I)
+    # If intersection is only one point, avoid duplicates
+    return(np.unique(I, axis=0))
 
 
 def segsegint(a1, a, b1, b):
-	'''
-	 SegSegInt: Finds the point of intersection p between two closed
-	 segments ab and cd.  Returns p and a char with the following meaning:
-	   'e': The segments collinearly overlap, sharing a point.
-	   'v': An endpoint (vertex) of one segment is on the other segment,
-	        but 'e' doesn't hold.
-	   '1': The segments intersect properly (i.e., they share a point and
-	        neither 'v' nor 'e' holds).
-	   '0': The segments do not intersect (i.e., they share no points).
-	 Note that two collinear segments that share just one point, an endpoint
-	 of each, returns 'e' rather than 'v' as one might expect.	
+    '''
+     SegSegInt: Finds the point of intersection p between two closed
+     segments ab and cd.  Returns p and a char with the following meaning:
+       'e': The segments collinearly overlap, sharing a point.
+       'v': An endpoint (vertex) of one segment is on the other segment,
+            but 'e' doesn't hold.
+       '1': The segments intersect properly (i.e., they share a point and
+            neither 'v' nor 'e' holds).
+       '0': The segments do not intersect (i.e., they share no points).
+     Note that two collinear segments that share just one point, an endpoint
+     of each, returns 'e' rather than 'v' as one might expect.  
 
      For math reference see https://stackoverflow.com/questions/563198/whats-the-most-efficent-way-to-calculate-where-two-line-segments-intersect
      segment1 = (p, p+r) =  p + t*r 
