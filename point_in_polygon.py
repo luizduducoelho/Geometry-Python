@@ -4,16 +4,15 @@ def polygon_inside_points(P, Q):
     '''
     points = []
     for point in P:
-        i = point_in_polygon(Q)
-        if i:
-            points.append()
+        if point_in_polygon(Q, point):
+            points.append(point)
     return points
     
 
 def point_in_polygon(P, a):
     '''
     Check if point a is inside polygon P
-    If it is, return a 
+    Return True or False
     '''
     
     # Assure that P is convex and its points are in counter-clockwise order 
