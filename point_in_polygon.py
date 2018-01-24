@@ -1,3 +1,7 @@
+import numpy as np
+from poly_poly_intersect import gift_wrapper
+
+
 def polygon_inside_points(P, Q):
     '''
     Check which vertices of P are inside Q and return them
@@ -7,7 +11,7 @@ def polygon_inside_points(P, Q):
         if point_in_polygon(Q, point):
             points.append(point)
     return points
-    
+
 
 def point_in_polygon(P, a):
     '''

@@ -129,8 +129,10 @@ def convex_intersect(P, Q):
         pass
         #print("The boundaries of P and Q do not cross")
     
-    # If intersection is only one point, avoid duplicates
-    return(np.unique(I, axis=0))
+    if len(I)>0:
+        I = np.unique(I, axis=0)
+    
+    return I
 
 
 def segsegint(a1, a, b1, b):
@@ -268,7 +270,6 @@ def area_sign(o, a, b):
 
 
 def polygon_area(np_points):
-    np_points = gift_wrapper(np_points)
     n = len(np_points)
     area = 0 
     origin = np_points[0]
