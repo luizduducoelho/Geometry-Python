@@ -270,6 +270,11 @@ def area_sign(o, a, b):
 
 
 def polygon_area(np_points):
+    '''
+    The function expect the points to be sequncialy in order
+    If thats not the case, run gift_wrapper in the points before 
+     calling this function
+    '''
     n = len(np_points)
     area = 0 
     origin = np_points[0]
