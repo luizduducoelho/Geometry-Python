@@ -96,7 +96,7 @@ def convex_intersect(P, Q):
             #raise SystemExit
             #print("Special case interception")
             I.append(p)
-            if q.any() != None:
+            if q is not None:
                 I.append(q)
         
         # Special case: A & B parallel and separated
@@ -268,6 +268,7 @@ def area_sign(o, a, b):
 
 
 def polygon_area(np_points):
+    np_points = gift_wrapper(np_points)
     n = len(np_points)
     area = 0 
     origin = np_points[0]
