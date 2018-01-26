@@ -1,5 +1,5 @@
 import numpy as np
-from poly_poly_intersect import gift_wrapper
+from poly_poly_intersect import gift_wrapper, polygon_area
 
 def is_convex(P):
     
@@ -56,3 +56,16 @@ def left(a,b,c):
     area = np.cross(V, U)
     return area > 0
 
+
+def polygon_centroid(P):
+    
+    area = polygon_area(P)
+    n = len(P)
+    
+    C = np.array([0,0])
+    
+    for i in range(n):
+        j = (i+1)%n
+        C += (P[i] + P[j]) * np.cross(P[i], P[j])
+    
+    return C/(6*area)
