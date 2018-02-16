@@ -84,7 +84,7 @@ def convex_intersect(P, Q):
         code, p, q = segsegint(P[a1], P[a], Q[b1], Q[b])
         if code == 1 or code =='v':
             if inflag == 'Unknow' and FirstPoint:
-                aa, ab = 0, 0 
+                aa, ba = 0, 0 
                 FirstPoint = False 
                 p0 = p    # p0 is the first point
             inflag, I = inout(p, inflag, aHB, bHA, I)
@@ -107,6 +107,10 @@ def convex_intersect(P, Q):
         
         # Special case: A & B are collinear
         elif cross == 0 and aHB == 0 and bHA == 0:
+            if p is not None:
+                I.append(p)
+            if q is not None:
+                I.append(q)
             if inflag == 'Pin':
                 b, ba = advance(b, ba, m, inflag=='Qin', Q[b])
             else:

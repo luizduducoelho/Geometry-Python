@@ -29,7 +29,7 @@ def point_in_polygon(P, a):
     Check if point a is inside polygon P
     Return True or False
 
-    The function expect the points to be sequncialy in order
+    The function expect the points to be in ccw order
     If thats not the case, run gift_wrapper in the points before 
     calling this function
     '''
